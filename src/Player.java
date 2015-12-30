@@ -5,10 +5,8 @@ public class Player {
 	private Player opponent;
 	private int score;
 	
-	public Player(int rating, boolean winner, int score){
+	public Player(int rating){
 		this.rating = rating;
-		this.winner = winner;
-		this.score = score;
 	}
 	public int getRating() {
 		return rating;
@@ -40,7 +38,11 @@ public class Player {
 		this.opponent = opponent;
 		opponent.opponent = this;
 	}
-	public void updateRating(){
+	public void updateRating(boolean winner, int thisScore, int opponentScore){
+		this.winner = winner;
+		this.score = thisScore;
+		this.opponent.score = opponentScore;
+		
 		if(this.opponent == null){
 			System.out.println("Opponent has not been set yet");
 			return;
@@ -58,12 +60,16 @@ public class Player {
 		}
 	}
 	
+	//MAKE A PLAYGAME METHOD THAT public playGame(int thisScore, int opponentScore, Player opponent)
+	//that utilizes the updateRating method once determining who has won and lost-and assigning all
+	//the needed values (rating-given, scores-given, winner-calculated)
+	//take out opponent and matchUp();
 	public static void main(String args[]){
-		Player John = new Player(1466, true, 21);
-		Player Mike = new Player(1430, false, 5);
+		Player John = new Player(1466);
+		Player Mike = new Player(1430);
 		John.matchUp(Mike);
-		John.updateRating();
-		Mike.updateRating();
+		John.updateRating(true,21,5);
+		Mike.updateRating(false,5,21);
 		System.out.println(John.getRating());
 		System.out.println(Mike.getRating());
 	}
