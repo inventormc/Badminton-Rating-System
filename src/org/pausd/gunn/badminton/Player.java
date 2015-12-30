@@ -1,3 +1,4 @@
+package org.pausd.gunn.badminton;
 
 public class Player {
 	private int rating;
