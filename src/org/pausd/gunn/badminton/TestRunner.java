@@ -1,7 +1,6 @@
 package org.pausd.gunn.badminton;
 
 import java.util.Date;
-
 public class TestRunner {
 
 	//MAKE A PLAYGAME METHOD THAT public playGame(int thisScore, int opponentScore, Player opponent)
@@ -14,13 +13,13 @@ public class TestRunner {
 		john.setRating(1466);
 		mike.setRating(1430);
 		
-		Match match = new Match();
-		match.setTime(new Date(System.currentTimeMillis()));
-		match.setPlayerA(john);
-		match.setPlayerB(mike);
-		match.setPlayerAScore(21);
-		match.setPlayerBScore(5);
-		match.updatePlayerRatings();
+		SinglesMatch singlesMatch = new SinglesMatch();
+		singlesMatch.setTime(new Date(System.currentTimeMillis()));
+		singlesMatch.setPlayerA(john);
+		singlesMatch.setPlayerB(mike);
+		singlesMatch.setPlayerAScore(21);
+		singlesMatch.setPlayerBScore(5);
+		singlesMatch.updatePlayerRatings();
 		
 		System.out.println(john.getRating());
 		System.out.println(mike.getRating());
