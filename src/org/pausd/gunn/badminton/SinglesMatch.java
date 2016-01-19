@@ -68,18 +68,12 @@ public class SinglesMatch {
 		}
 
 		// First update rating for playerA
-		if (playerA.getRating() > playerB.getRating()) {
-			playerA.setRating((int) Math.round(playerA.getRating() + ((this.getPlayerAScore() - this.getPlayerBScore())
-					- (0.1 * (playerA.getRating() - playerB.getRating())))));
-			if (winner.equals(playerA)) {
-				playerA.setRating(playerA.getRating() + 3);
-			}
-		} else if (playerA.getRating() < playerB.getRating()){
-			playerA.setRating((int) Math.round(playerA.getRating() + ((this.getPlayerAScore() - this.getPlayerBScore())
-					+ (0.1 * (playerB.getRating() - playerA.getRating())))));
-			if (winner.equals(playerA)) {
-				playerA.setRating(playerA.getRating() + 3);
-			}
+		if (playerA.getSinglesRating() > playerB.getSinglesRating()) {
+			playerA.setSinglesRating((int) Math.round(playerA.getSinglesRating() + ((this.getPlayerAScore() - this.getPlayerBScore())
+					- (0.1 * (playerA.getSinglesRating() - playerB.getSinglesRating())))));
+		} else if (playerA.getSinglesRating() < playerB.getSinglesRating()){
+			playerA.setSinglesRating((int) Math.round(playerA.getSinglesRating() + ((this.getPlayerAScore() - this.getPlayerBScore())
+					+ (0.1 * (playerB.getSinglesRating() - playerA.getSinglesRating())))));
 		} else {//when the player rankings are equal, we randomly choose an xy assignment to use 
 			//note: end of formula with .1(E-D) where e is high ranking and d is low ranking results in zero
 			//since the rankings are the same in this case. .1(E-D) part have been deleted for this reason
@@ -88,28 +82,24 @@ public class SinglesMatch {
 			
 			switch (choice){
 			case 0:
-				playerA.setRating((int) Math.round(playerA.getRating() + (this.getPlayerAScore() - this.getPlayerBScore())));
+				playerA.setSinglesRating((int) Math.round(playerA.getSinglesRating() + (this.getPlayerAScore() - this.getPlayerBScore())));
 			case 1:
-				playerA.setRating((int) Math.round(playerA.getRating() + (this.getPlayerBScore() - this.getPlayerAScore())));
-			}
-			if (winner.equals(playerA)) {
-				playerA.setRating(playerA.getRating() + 3);
+				playerA.setSinglesRating((int) Math.round(playerA.getSinglesRating() + (this.getPlayerBScore() - this.getPlayerAScore())));
 			}
 		}
+		
+		if (winner.equals(playerA)) {
+			playerA.setSinglesRating(playerA.getSinglesRating() + 3);
+		}
+		
 
 		// Next update rating for playerB
-		if (playerB.getRating() > playerA.getRating()) {
-			playerB.setRating((int) Math.round(playerB.getRating() + ((this.getPlayerBScore() - this.getPlayerAScore())
-					- (0.1 * (playerB.getRating() - playerA.getRating())))));
-			if (winner.equals(playerB)) {
-				playerB.setRating(playerB.getRating() + 3);
-			}
-		} else if (playerB.getRating() < playerA.getRating()) {
-			playerB.setRating((int) Math.round(playerB.getRating() + ((this.getPlayerBScore() - this.getPlayerAScore())
-					+ (0.1 * (playerA.getRating() - playerB.getRating())))));
-			if (winner.equals(playerB)) {
-				playerB.setRating(playerB.getRating() + 3);
-			}
+		if (playerB.getSinglesRating() > playerA.getSinglesRating()) {
+			playerB.setSinglesRating((int) Math.round(playerB.getSinglesRating() + ((this.getPlayerBScore() - this.getPlayerAScore())
+					- (0.1 * (playerB.getSinglesRating() - playerA.getSinglesRating())))));
+		} else if (playerB.getSinglesRating() < playerA.getSinglesRating()) {
+			playerB.setSinglesRating((int) Math.round(playerB.getSinglesRating() + ((this.getPlayerBScore() - this.getPlayerAScore())
+					+ (0.1 * (playerA.getSinglesRating() - playerB.getSinglesRating())))));
 		} else {//when the player rankings are equal, we randomly choose an xy assignment to use
 			//note: end of formula with .1(E-D) where e is high ranking and d is low ranking results in zero
 			//since the rankings are the same in this case. .1(E-D) part have been deleted for this reason
@@ -118,23 +108,25 @@ public class SinglesMatch {
 
 			switch (choice){
 			case 0:
-				playerB.setRating((int) Math.round(playerB.getRating() + (this.getPlayerBScore() - this.getPlayerAScore())));
+				playerB.setSinglesRating((int) Math.round(playerB.getSinglesRating() + (this.getPlayerBScore() - this.getPlayerAScore())));
 				break;
 			case 1:
-				playerB.setRating((int) Math.round(playerB.getRating() + (this.getPlayerAScore() - this.getPlayerBScore())));
+				playerB.setSinglesRating((int) Math.round(playerB.getSinglesRating() + (this.getPlayerAScore() - this.getPlayerBScore())));
 				break;
 			}
-			if (winner.equals(playerB)) {
-				playerB.setRating(playerB.getRating() + 3);
-			}	
 		}
 		
-		//ensure rankings can't go under 0
-		if(playerA.getRating() < 0){
-			playerA.setRating(0);
+		if (winner.equals(playerB)) {
+			playerB.setSinglesRating(playerB.getSinglesRating() + 3);
 		}
-		if(playerB.getRating() < 0){
-			playerB.setRating(0);
+		
+		
+		//ensure rankings can't go under 0
+		if(playerA.getSinglesRating() < 0){
+			playerA.setSinglesRating(0);
+		}
+		if(playerB.getSinglesRating() < 0){
+			playerB.setSinglesRating(0);
 		}
 	}
 

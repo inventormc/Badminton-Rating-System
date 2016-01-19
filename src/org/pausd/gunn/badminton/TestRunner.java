@@ -8,10 +8,10 @@ public class TestRunner {
 	//the needed values (rating-given, scores-given, winner-calculated)
 	//take out opponent and matchUp();
 	public static void main(String args[]) {
-		Player john = new Player("John");
-		Player mike = new Player("Mike");
-		john.setRating(1466);
-		mike.setRating(1430);
+		Player john = new Player("John", Gender.MALE);
+		Player mike = new Player("Mike", Gender.MALE);
+		john.setSinglesRating(1466);
+		mike.setSinglesRating(1430);
 		
 		SinglesMatch singlesMatch = new SinglesMatch();
 		singlesMatch.setTime(new Date(System.currentTimeMillis()));
@@ -21,8 +21,8 @@ public class TestRunner {
 		singlesMatch.setPlayerBScore(5);
 		singlesMatch.updatePlayerRatings();
 		
-		System.out.println(john.getRating());
-		System.out.println(mike.getRating());
+		System.out.println(john.getSinglesRating());
+		System.out.println(mike.getSinglesRating());
 	}
 	
 }
