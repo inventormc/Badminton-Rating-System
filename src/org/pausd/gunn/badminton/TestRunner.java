@@ -10,15 +10,15 @@ public class TestRunner {
 	public static void main(String args[]) {
 		Player john = new Player("John", Gender.MALE);
 		Player mike = new Player("Mike", Gender.MALE);
-		john.setSinglesRating(1466);
-		mike.setSinglesRating(1430);
+		john.setSinglesRating(1500);
+		mike.setSinglesRating(1200);
 		
 		SinglesMatch singlesMatch = new SinglesMatch();
 		singlesMatch.setTime(new Date(System.currentTimeMillis()));
 		singlesMatch.setPlayerA(john);
 		singlesMatch.setPlayerB(mike);
 		singlesMatch.setPlayerAScore(21);
-		singlesMatch.setPlayerBScore(5);
+		singlesMatch.setPlayerBScore(0);
 		singlesMatch.updatePlayerRatings();
 		
 		System.out.println(john.getSinglesRating());

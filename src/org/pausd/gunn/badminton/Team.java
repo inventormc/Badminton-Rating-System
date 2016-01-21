@@ -5,6 +5,10 @@ public class Team {
 	private Player playerB;
 	private int teamRating;
 	
+	public Team(Player playerA, Player playerB){
+		this.playerA = playerA;
+		this.playerB = playerB;
+	}
 	public Player getPlayerA() {
 		return playerA;
 	}
