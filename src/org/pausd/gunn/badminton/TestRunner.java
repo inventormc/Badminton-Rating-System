@@ -9,20 +9,24 @@ public class TestRunner {
 	//take out opponent and matchUp();
 	public static void main(String args[]) {
 		Player john = new Player("John", Gender.MALE);
+		Player julia = new Player("Julia", Gender.FEMALE);
+		
 		Player mike = new Player("Mike", Gender.MALE);
-		john.setSinglesRating(1500);
-		mike.setSinglesRating(1200);
+		Player mary = new Player("Mary",Gender.FEMALE);
 		
-		SinglesMatch singlesMatch = new SinglesMatch();
-		singlesMatch.setTime(new Date(System.currentTimeMillis()));
-		singlesMatch.setPlayerA(john);
-		singlesMatch.setPlayerB(mike);
-		singlesMatch.setPlayerAScore(21);
-		singlesMatch.setPlayerBScore(0);
-		singlesMatch.updatePlayerRatings();
+		john.setMixedDoublesRating(1500);
+		julia.setMixedDoublesRating(1500);
 		
-		System.out.println(john.getSinglesRating());
-		System.out.println(mike.getSinglesRating());
+		mike.setMixedDoublesRating(1200);
+		mary.setMixedDoublesRating(1200);
+		
+		Team a = new Team(john,julia);
+		Team b = new Team(mike,mary);
+		MixedDoublesMatch match = new MixedDoublesMatch(a,b);
+		match.setTeamAScore(11);
+		match.setTeamBScore(21);
+		match.updatePlayerRatings();
+		
 	}
 	
 }

@@ -1,31 +1,41 @@
 package org.pausd.gunn.badminton;
 
+import java.util.ArrayList;
+
 public class Team {
-	private Player playerA;
-	private Player playerB;
+	//ensure that ordering in arraylist will work alright
+	private ArrayList<Player> players;
 	private int teamRating;
 	
 	public Team(Player playerA, Player playerB){
-		this.playerA = playerA;
-		this.playerB = playerB;
+		players = new ArrayList<>();
+		players.add(playerA);
+		players.add(playerB);
 	}
-	public Player getPlayerA() {
-		return playerA;
+	
+	public Team(Player playerA){
+		players = new ArrayList<>();
+		players.add(playerA);
 	}
-	public void setPlayerA(Player playerA) {
-		this.playerA = playerA;
+
+	public ArrayList<Player> getPlayers() {
+		return players;
 	}
-	public Player getPlayerB() {
-		return playerB;
+
+	public void setPlayers(ArrayList<Player> players) {
+		this.players = players;
 	}
-	public void setPlayerB(Player playerB) {
-		this.playerB = playerB;
-	}
+
 	public int getTeamRating() {
-		if(playerA.getGender() != playerB.getGender()){
-			teamRating = (playerA.getMixedDoublesRating() + playerB.getMixedDoublesRating())/2;
-		}else{
-			teamRating = (playerA.getDoublesRating() + playerB.getDoublesRating())/2;
+		switch (players.size()){
+		case 1:
+			teamRating = players.get(0).getSinglesRating();
+		case 2:
+			if(players.get(0).getGender() != players.get(1).getGender()){
+				teamRating = (players.get(0).getMixedDoublesRating() + players.get(1).getMixedDoublesRating())/2;
+			}else{
+				teamRating = (players.get(0).getDoublesRating() + players.get(1).getDoublesRating())/2;
+			}
 		}
 		
 		return teamRating;
@@ -34,8 +44,8 @@ public class Team {
 	@Override
 	public boolean equals(Object o){
 		if(o instanceof Team){
-			return playerA.getName().equals(((Team) o).getPlayerA().getName())
-					&& playerB.getName().equals(((Team) o).getPlayerB().getName());
+			return players.get(0).getName().equals(((Team) o).players.get(0).getName())
+					&& players.get(1).getName().equals(((Team) o).players.get(1).getName());
 		}
 		return false;
 	}

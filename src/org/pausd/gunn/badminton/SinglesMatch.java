@@ -1,79 +1,29 @@
 package org.pausd.gunn.badminton;
 
-import java.util.Date;
 import java.util.Random;
 
-public class SinglesMatch {
+public class SinglesMatch extends Match{
 
-	private Date time;
-	private Player playerA;
-	private Player playerB;
-	private Integer playerAScore;
-	private Integer playerBScore;
-
-	public Date getTime() {
-		return time;
+	public SinglesMatch(Team teamA, Team teamB){
+		this.teamA = teamA;
+		this.teamB = teamB;
 	}
-
-	public void setTime(Date time) {
-		this.time = time;
-	}
-
-	public Player getPlayerA() {
-		return playerA;
-	}
-
-	public void setPlayerA(Player playerA) {
-		this.playerA = playerA;
-	}
-
-	public Player getPlayerB() {
-		return playerB;
-	}
-
-	public void setPlayerB(Player playerB) {
-		this.playerB = playerB;
-	}
-
-	public Integer getPlayerAScore() {
-		return playerAScore;
-	}
-
-	public void setPlayerAScore(Integer playerAScore) {
-		this.playerAScore = playerAScore;
-	}
-
-	public Integer getPlayerBScore() {
-		return playerBScore;
-	}
-
-	public void setPlayerBScore(Integer playerBScore) {
-		this.playerBScore = playerBScore;
-	}
-
-	public Player getWinner() {
-		if (this.getPlayerAScore() > this.getPlayerBScore()) {
-			return playerA;
-		} else {
-			return playerB;
-		}
-	}
-
+	
 	public void updatePlayerRatings() {
-		Player winner = this.getWinner();
+		Team winner = this.getWinner();
 
-		if (this.getPlayerA() == null || this.getPlayerB() == null) {
+		if (teamA == null || teamB == null) {
 			System.out.println("Players have not been set yet");
 			return;
 		}
 
 		// First update rating for playerA
-		if (playerA.getSinglesRating() > playerB.getSinglesRating()) {
-			playerA.setSinglesRating((int) Math.round(playerA.getSinglesRating() + ((this.getPlayerAScore() - this.getPlayerBScore())
-					- (0.1 * (playerA.getSinglesRating() - playerB.getSinglesRating())))));
-		} else if (playerA.getSinglesRating() < playerB.getSinglesRating()){
-			playerA.setSinglesRating((int) Math.round(playerA.getSinglesRating() + ((this.getPlayerAScore() - this.getPlayerBScore())
-					+ (0.1 * (playerB.getSinglesRating() - playerA.getSinglesRating())))));
+		if (teamA.getPlayers().get(0).getSinglesRating() > teamB.getPlayers().get(0).getSinglesRating()) {
+			teamA.getPlayers().get(0).setSinglesRating((int) Math.round(teamA.getPlayers().get(0).getSinglesRating() + ((this.getTeamAScore() - this.getTeamBScore())
+					- (0.1 * (teamA.getPlayers().get(0).getSinglesRating() - teamB.getPlayers().get(0).getSinglesRating())))));
+		} else if (teamA.getPlayers().get(0).getSinglesRating() < teamB.getPlayers().get(0).getSinglesRating()){
+			teamA.getPlayers().get(0).setSinglesRating((int) Math.round(teamA.getPlayers().get(0).getSinglesRating() + ((this.getTeamAScore() - this.getTeamBScore())
+					+ (0.1 * (teamB.getPlayers().get(0).getSinglesRating() - teamA.getPlayers().get(0).getSinglesRating())))));
 		} else {//when the player rankings are equal, we randomly choose an xy assignment to use 
 			//note: end of formula with .1(E-D) where e is high ranking and d is low ranking results in zero
 			//since the rankings are the same in this case. .1(E-D) part have been deleted for this reason
@@ -82,24 +32,24 @@ public class SinglesMatch {
 			
 			switch (choice){
 			case 0:
-				playerA.setSinglesRating((int) Math.round(playerA.getSinglesRating() + (this.getPlayerAScore() - this.getPlayerBScore())));
+				teamA.getPlayers().get(0).setSinglesRating((int) Math.round(teamA.getPlayers().get(0).getSinglesRating() + (this.getTeamAScore() - this.getTeamBScore())));
 			case 1:
-				playerA.setSinglesRating((int) Math.round(playerA.getSinglesRating() + (this.getPlayerBScore() - this.getPlayerAScore())));
+				teamA.getPlayers().get(0).setSinglesRating((int) Math.round(teamA.getPlayers().get(0).getSinglesRating() + (this.getTeamBScore() - this.getTeamAScore())));
 			}
 		}
 		
-		if (winner.equals(playerA)) {
-			playerA.setSinglesRating(playerA.getSinglesRating() + 3);
+		if (winner.equals(teamA)) {
+			teamA.getPlayers().get(0).setSinglesRating(teamA.getPlayers().get(0).getSinglesRating() + 3);
 		}
 		
 
 		// Next update rating for playerB
-		if (playerB.getSinglesRating() > playerA.getSinglesRating()) {
-			playerB.setSinglesRating((int) Math.round(playerB.getSinglesRating() + ((this.getPlayerBScore() - this.getPlayerAScore())
-					- (0.1 * (playerB.getSinglesRating() - playerA.getSinglesRating())))));
-		} else if (playerB.getSinglesRating() < playerA.getSinglesRating()) {
-			playerB.setSinglesRating((int) Math.round(playerB.getSinglesRating() + ((this.getPlayerBScore() - this.getPlayerAScore())
-					+ (0.1 * (playerA.getSinglesRating() - playerB.getSinglesRating())))));
+		if (teamB.getPlayers().get(0).getSinglesRating() > teamA.getPlayers().get(0).getSinglesRating()) {
+			teamB.getPlayers().get(0).setSinglesRating((int) Math.round(teamB.getPlayers().get(0).getSinglesRating() + ((this.getTeamBScore() - this.getTeamAScore())
+					- (0.1 * (teamB.getPlayers().get(0).getSinglesRating() - teamA.getPlayers().get(0).getSinglesRating())))));
+		} else if (teamB.getPlayers().get(0).getSinglesRating() < teamA.getPlayers().get(0).getSinglesRating()) {
+			teamB.getPlayers().get(0).setSinglesRating((int) Math.round(teamB.getPlayers().get(0).getSinglesRating() + ((this.getTeamBScore() - this.getTeamAScore())
+					+ (0.1 * (teamA.getPlayers().get(0).getSinglesRating() - teamB.getPlayers().get(0).getSinglesRating())))));
 		} else {//when the player rankings are equal, we randomly choose an xy assignment to use
 			//note: end of formula with .1(E-D) where e is high ranking and d is low ranking results in zero
 			//since the rankings are the same in this case. .1(E-D) part have been deleted for this reason
@@ -108,25 +58,25 @@ public class SinglesMatch {
 
 			switch (choice){
 			case 0:
-				playerB.setSinglesRating((int) Math.round(playerB.getSinglesRating() + (this.getPlayerBScore() - this.getPlayerAScore())));
+				teamB.getPlayers().get(0).setSinglesRating((int) Math.round(teamB.getPlayers().get(0).getSinglesRating() + (this.getTeamBScore() - this.getTeamAScore())));
 				break;
 			case 1:
-				playerB.setSinglesRating((int) Math.round(playerB.getSinglesRating() + (this.getPlayerAScore() - this.getPlayerBScore())));
+				teamB.getPlayers().get(0).setSinglesRating((int) Math.round(teamB.getPlayers().get(0).getSinglesRating() + (this.getTeamAScore() - this.getTeamBScore())));
 				break;
 			}
 		}
 		
-		if (winner.equals(playerB)) {
-			playerB.setSinglesRating(playerB.getSinglesRating() + 3);
+		if (winner.equals(teamB)) {
+			teamB.getPlayers().get(0).setSinglesRating(teamB.getPlayers().get(0).getSinglesRating() + 3);
 		}
 		
 		
 		//ensure rankings can't go under 0
-		if(playerA.getSinglesRating() < 0){
-			playerA.setSinglesRating(0);
+		if(teamA.getPlayers().get(0).getSinglesRating() < 0){
+			teamA.getPlayers().get(0).setSinglesRating(0);
 		}
-		if(playerB.getSinglesRating() < 0){
-			playerB.setSinglesRating(0);
+		if(teamB.getPlayers().get(0).getSinglesRating() < 0){
+			teamB.getPlayers().get(0).setSinglesRating(0);
 		}
 	}
 

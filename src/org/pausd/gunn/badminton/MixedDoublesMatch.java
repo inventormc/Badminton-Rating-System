@@ -1,79 +1,33 @@
 package org.pausd.gunn.badminton;
 
-import java.util.Date;
 import java.util.Random;
 
-public class MixedDoublesMatch {
-	private Date time;
-	private Team teamA;
-	private Team teamB;
-	private int teamAScore;
-	private int teamBScore;
+public class MixedDoublesMatch extends Match{
 	
 	public MixedDoublesMatch(Team teamA, Team teamB){
 		this.teamA = teamA;
 		this.teamB = teamB;
 	}
 	
-	public Date getTime() {
-		return time;
-	}
-	public void setTime(Date time) {
-		this.time = time;
-	}
-	public Team getTeamA() {
-		return teamA;
-	}
-	public void setTeamA(Team teamA) {
-		this.teamA = teamA;
-	}
-	public Team getTeamB() {
-		return teamB;
-	}
-	public void setTeamB(Team teamB) {
-		this.teamB = teamB;
-	}
-	public int getTeamAScore() {
-		return teamAScore;
-	}
-	public void setTeamAScore(int teamAScore) {
-		this.teamAScore = teamAScore;
-	}
-	public int getTeamBScore() {
-		return teamBScore;
-	}
-	public void setTeamBScore(int teamBScore) {
-		this.teamBScore = teamBScore;
-	}
-	
-	public Team getWinner(){
-		if(teamAScore > teamBScore){
-			return teamA;
-		}else{
-			return teamB;
-		}
-	}
-	
-	//change update to mix doubles rating
 	public void updatePlayerRatings(){
 		Team winner = this.getWinner();
 		
-		if (this.getTeamA() == null || this.getTeamB() == null) {
+		if (getTeamA() == null || getTeamB() == null) {
 			System.out.println("Players have not been set yet");
 			return;
 		}
 		
 		//First update rating for team a
 		if(teamA.getTeamRating() > teamB.getTeamRating()){
-			teamA.getPlayerA().setMixedDoublesRating((int) Math.round(teamA.getPlayerA().getMixedDoublesRating() + ((getTeamAScore() - getTeamBScore())
+			teamA.getPlayers().get(0).setMixedDoublesRating((int) Math.round(teamA.getPlayers().get(0).getMixedDoublesRating() + ((getTeamAScore() - getTeamBScore())
 					- (0.1 * (teamA.getTeamRating() - teamB.getTeamRating())))));
-			teamA.getPlayerB().setMixedDoublesRating((int) Math.round(teamA.getPlayerB().getMixedDoublesRating() + ((getTeamAScore() - getTeamBScore())
+			teamA.getPlayers().get(1).setMixedDoublesRating((int) Math.round(teamA.getPlayers().get(1).getMixedDoublesRating() + ((getTeamAScore() - getTeamBScore())
 					- (0.1 * (teamA.getTeamRating() - teamB.getTeamRating())))));
 
 		} else if(teamA.getTeamRating() < teamB.getTeamRating()){
-			teamA.getPlayerA().setMixedDoublesRating((int) Math.round(teamA.getPlayerA().getMixedDoublesRating() + ((getTeamAScore() - getTeamBScore())
+			teamA.getPlayers().get(0).setMixedDoublesRating((int) Math.round(teamA.getPlayers().get(0).getMixedDoublesRating() + ((getTeamAScore() - getTeamBScore())
 					+ (0.1 * (teamB.getTeamRating() - teamA.getTeamRating())))));
-			teamA.getPlayerB().setMixedDoublesRating((int) Math.round(teamA.getPlayerB().getMixedDoublesRating() + ((getTeamAScore() - getTeamBScore())
+			teamA.getPlayers().get(1).setMixedDoublesRating((int) Math.round(teamA.getPlayers().get(1).getMixedDoublesRating() + ((getTeamAScore() - getTeamBScore())
 					+ (0.1 * (teamB.getTeamRating() - teamA.getTeamRating())))));
 		} else {
 			//when the player rankings are equal, we randomly choose an xy assignment to use 
@@ -84,34 +38,34 @@ public class MixedDoublesMatch {
 			
 			switch(choice){
 			case 0:
-				teamA.getPlayerA().setMixedDoublesRating((int) Math.round(teamA.getPlayerA().getMixedDoublesRating() + 
+				teamA.getPlayers().get(0).setMixedDoublesRating((int) Math.round(teamA.getPlayers().get(0).getMixedDoublesRating() + 
 						(getTeamAScore() - getTeamBScore())));
-				teamA.getPlayerB().setMixedDoublesRating((int) Math.round(teamA.getPlayerB().getMixedDoublesRating() +
+				teamA.getPlayers().get(1).setMixedDoublesRating((int) Math.round(teamA.getPlayers().get(1).getMixedDoublesRating() +
 						(getTeamAScore() - getTeamBScore())));
 			case 1:
-				teamA.getPlayerA().setMixedDoublesRating((int) Math.round(teamA.getPlayerA().getMixedDoublesRating() +
+				teamA.getPlayers().get(0).setMixedDoublesRating((int) Math.round(teamA.getPlayers().get(0).getMixedDoublesRating() +
 						(getTeamBScore()- getTeamAScore())));
-				teamA.getPlayerB().setMixedDoublesRating((int) Math.round(teamA.getPlayerB().getMixedDoublesRating() +
+				teamA.getPlayers().get(1).setMixedDoublesRating((int) Math.round(teamA.getPlayers().get(1).getMixedDoublesRating() +
 						(getTeamBScore()- getTeamAScore())));
 			}
 		}
 		
 		if(winner.equals(teamA)){
-			teamA.getPlayerA().setMixedDoublesRating(teamA.getPlayerA().getMixedDoublesRating() + 3);
-			teamA.getPlayerB().setMixedDoublesRating(teamA.getPlayerB().getMixedDoublesRating() + 3);
+			teamA.getPlayers().get(0).setMixedDoublesRating(teamA.getPlayers().get(0).getMixedDoublesRating() + 3);
+			teamA.getPlayers().get(1).setMixedDoublesRating(teamA.getPlayers().get(1).getMixedDoublesRating() + 3);
 		}
 		
 		
 		//Update rating for team b
 		if(teamB.getTeamRating() > teamA.getTeamRating()){
-			teamB.getPlayerA().setMixedDoublesRating((int) Math.round(teamB.getPlayerA().getMixedDoublesRating() + ((getTeamBScore() - getTeamAScore())
+			teamB.getPlayers().get(0).setMixedDoublesRating((int) Math.round(teamB.getPlayers().get(0).getMixedDoublesRating() + ((getTeamBScore() - getTeamAScore())
 					- (0.1 * (teamB.getTeamRating() - teamA.getTeamRating())))));
-			teamB.getPlayerB().setMixedDoublesRating((int) Math.round(teamB.getPlayerB().getMixedDoublesRating() + ((getTeamBScore() - getTeamAScore())
+			teamB.getPlayers().get(1).setMixedDoublesRating((int) Math.round(teamB.getPlayers().get(1).getMixedDoublesRating() + ((getTeamBScore() - getTeamAScore())
 					- (0.1 * (teamB.getTeamRating() - teamA.getTeamRating())))));
 		} else if (teamB.getTeamRating() < teamA.getTeamRating()){
-			teamB.getPlayerA().setMixedDoublesRating((int) Math.round(teamB.getPlayerA().getMixedDoublesRating() + ((getTeamBScore() - getTeamAScore())
+			teamB.getPlayers().get(0).setMixedDoublesRating((int) Math.round(teamB.getPlayers().get(0).getMixedDoublesRating() + ((getTeamBScore() - getTeamAScore())
 					+ (0.1 * (teamA.getTeamRating() - teamB.getTeamRating())))));
-			teamB.getPlayerB().setMixedDoublesRating((int) Math.round(teamB.getPlayerB().getMixedDoublesRating() + ((getTeamBScore() - getTeamAScore())
+			teamB.getPlayers().get(1).setMixedDoublesRating((int) Math.round(teamB.getPlayers().get(1).getMixedDoublesRating() + ((getTeamBScore() - getTeamAScore())
 					+ (0.1 * (teamA.getTeamRating() - teamB.getTeamRating())))));
 		} else {
 			//when the player rankings are equal, we randomly choose an xy assignment to use 
@@ -123,36 +77,36 @@ public class MixedDoublesMatch {
 			
 			switch(choice){
 			case 0:
-				teamB.getPlayerA().setMixedDoublesRating((int) Math.round(teamB.getPlayerA().getMixedDoublesRating() +
+				teamB.getPlayers().get(0).setMixedDoublesRating((int) Math.round(teamB.getPlayers().get(0).getMixedDoublesRating() +
 						(getTeamBScore() - getTeamAScore())));
-				teamB.getPlayerB().setMixedDoublesRating((int) Math.round(teamB.getPlayerB().getMixedDoublesRating() +
+				teamB.getPlayers().get(1).setMixedDoublesRating((int) Math.round(teamB.getPlayers().get(1).getMixedDoublesRating() +
 						(getTeamBScore() - getTeamAScore())));
 			case 1:
-				teamB.getPlayerA().setMixedDoublesRating((int) Math.round(teamB.getPlayerA().getMixedDoublesRating() +
+				teamB.getPlayers().get(0).setMixedDoublesRating((int) Math.round(teamB.getPlayers().get(0).getMixedDoublesRating() +
 						(getTeamAScore() - getTeamBScore())));
-				teamB.getPlayerB().setMixedDoublesRating((int) Math.round(teamB.getPlayerB().getMixedDoublesRating() +
+				teamB.getPlayers().get(1).setMixedDoublesRating((int) Math.round(teamB.getPlayers().get(1).getMixedDoublesRating() +
 						(getTeamAScore() - getTeamBScore())));
 				
 			}
 		}
 		
 		if(winner.equals(teamB)){
-			teamB.getPlayerA().setMixedDoublesRating(teamB.getPlayerA().getMixedDoublesRating() + 3);
-			teamB.getPlayerB().setMixedDoublesRating(teamB.getPlayerB().getMixedDoublesRating() + 3);
+			teamB.getPlayers().get(0).setMixedDoublesRating(teamB.getPlayers().get(0).getMixedDoublesRating() + 3);
+			teamB.getPlayers().get(1).setMixedDoublesRating(teamB.getPlayers().get(1).getMixedDoublesRating() + 3);
 		}
 		
 		//ensure rankings can't go under 0
-		if(teamA.getPlayerA().getMixedDoublesRating() < 0){
-			teamA.getPlayerA().setMixedDoublesRating(0);
+		if(teamA.getPlayers().get(0).getMixedDoublesRating() < 0){
+			teamA.getPlayers().get(0).setMixedDoublesRating(0);
 		}
-		if(teamA.getPlayerB().getMixedDoublesRating() < 0){
-			teamA.getPlayerB().setMixedDoublesRating(0);
+		if(teamA.getPlayers().get(1).getMixedDoublesRating() < 0){
+			teamA.getPlayers().get(1).setMixedDoublesRating(0);
 		}
-		if(teamB.getPlayerA().getMixedDoublesRating() < 0){
-			teamB.getPlayerA().setMixedDoublesRating(0);
+		if(teamB.getPlayers().get(0).getMixedDoublesRating() < 0){
+			teamB.getPlayers().get(0).setMixedDoublesRating(0);
 		}
-		if(teamB.getPlayerB().getMixedDoublesRating() < 0){
-			teamB.getPlayerB().setMixedDoublesRating(0);
+		if(teamB.getPlayers().get(1).getMixedDoublesRating() < 0){
+			teamB.getPlayers().get(1).setMixedDoublesRating(0);
 		}
 	}
 }
