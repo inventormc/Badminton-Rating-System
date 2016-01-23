@@ -1,6 +1,5 @@
 package org.pausd.gunn.badminton;
 
-import java.util.Date;
 public class TestRunner {
 
 	//MAKE A PLAYGAME METHOD THAT public playGame(int thisScore, int opponentScore, Player opponent)
