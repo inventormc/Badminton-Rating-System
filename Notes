@@ -1,0 +1,6 @@
+Add Match.java to tie SinglesMatch, DoublesMatch, MixedDoublesMatch tightly together so the three (singeles,doubles,mix) only need 
+the updateRating() method. Make sure you don't affect how the class calculates (don't mess up the formula) - still gets the 
+same player, same rating etc. 
+May need to have some classes/some way to differentiate between singlesTeam, doublesTeam, mixedDoublesTeam.
+Perhaps make test cases and run them through current program, edit program with abstract Match class,then run test cases through again. 
+if the results are the same, commit and push.
