@@ -6,8 +6,8 @@ public abstract class Match {
 	protected Date time;
 	protected Team teamA;
 	protected Team teamB;
-	protected Integer teamAScore;
-	protected Integer teamBScore;
+	protected int teamAScore;
+	protected int teamBScore;
 	
 	public Date getTime() {
 		return time;
@@ -27,16 +27,16 @@ public abstract class Match {
 	public void setTeamB(Team teamB) {
 		this.teamB = teamB;
 	}
-	public Integer getTeamAScore() {
+	public int getTeamAScore() {
 		return teamAScore;
 	}
-	public void setTeamAScore(Integer teamAScore) {
+	public void setTeamAScore(int teamAScore) {
 		this.teamAScore = teamAScore;
 	}
-	public Integer getTeamBScore() {
+	public int getTeamBScore() {
 		return teamBScore;
 	}
-	public void setTeamBScore(Integer teamBScore) {
+	public void setTeamBScore(int teamBScore) {
 		this.teamBScore = teamBScore;
 	}
 	
