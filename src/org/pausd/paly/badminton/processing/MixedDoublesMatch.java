@@ -1,4 +1,4 @@
-package org.pausd.gunn.badminton;
+package org.pausd.paly.badminton.processing;
 
 import java.util.Random;
 

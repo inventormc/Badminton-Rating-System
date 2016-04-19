@@ -1,4 +1,4 @@
-package org.pausd.gunn.badminton;
+package org.pausd.paly.badminton.sql;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;

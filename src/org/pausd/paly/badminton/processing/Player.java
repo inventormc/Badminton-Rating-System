@@ -1,4 +1,4 @@
-package org.pausd.gunn.badminton;
+package org.pausd.paly.badminton.processing;
 
 public class Player {
 	private final String name;

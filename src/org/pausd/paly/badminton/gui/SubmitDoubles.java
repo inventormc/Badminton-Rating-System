@@ -1,7 +1,14 @@
-package org.pausd.gunn.badminton;
+package org.pausd.paly.badminton.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import org.pausd.paly.badminton.processing.DoublesMatch;
+import org.pausd.paly.badminton.processing.Gender;
+import org.pausd.paly.badminton.processing.MixedDoublesMatch;
+import org.pausd.paly.badminton.processing.Player;
+import org.pausd.paly.badminton.processing.Team;
+import org.pausd.paly.badminton.sql.SqlHelper;
 
 public class SubmitDoubles implements ActionListener{
 	MainMenu mm;

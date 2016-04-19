@@ -1,4 +1,4 @@
-package org.pausd.gunn.badminton;
+package org.pausd.paly.badminton.gui;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
