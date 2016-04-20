@@ -48,5 +48,28 @@ public abstract class Match {
 		}
 	}
 	
+	//NEED TO MAKE SURE THIS METHOD WORKS
+	public static boolean areValidScores(int teamAScore, int teamBScore){
+		if(teamAScore < 0 || teamBScore < 0){
+			return false;
+		}else if(teamAScore > 30 || teamBScore > 30){
+			return false;
+		}else if(teamAScore < 21 && teamBScore < 21){
+			return false;
+		}else if(teamAScore == 30 && teamBScore != 29){
+			return false;
+		}else if(teamBScore == 30 && teamAScore != 29){
+			return false;
+		}else if(teamAScore > 21 && teamBScore < teamAScore && teamAScore - teamBScore != 2){
+			return false;
+		}else if(teamBScore > 21 && teamAScore < teamBScore && teamBScore - teamAScore != 2){
+			return false;
+		}else if(((int)Math.abs(teamAScore - teamBScore)) < 2){
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
 	public abstract void updatePlayerRatings();
 }

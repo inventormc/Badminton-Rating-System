@@ -2,9 +2,13 @@ package org.pausd.paly.badminton.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 
 import org.pausd.paly.badminton.processing.DoublesMatch;
 import org.pausd.paly.badminton.processing.Gender;
+import org.pausd.paly.badminton.processing.Match;
 import org.pausd.paly.badminton.processing.MixedDoublesMatch;
 import org.pausd.paly.badminton.processing.Player;
 import org.pausd.paly.badminton.processing.Team;
@@ -24,7 +28,9 @@ public class SubmitDoubles implements ActionListener{
 		String playerB1Id = mm.getB1().getSelectedItem().toString();
 		String playerB2Id = mm.getB2().getSelectedItem().toString();
 		
+		ArrayList<String []> stringScores = new ArrayList<>();//might want to change code to stackoverflow way
 		int[][] scores = new int[3][2];
+		
 		for(int i = 0;i < scores.length;i++){
 			for(int j = 0;j < scores[i].length;j++){
 				try{
@@ -82,10 +88,12 @@ public class SubmitDoubles implements ActionListener{
 		if(genderA1 == genderA2){//doubles
 			DoublesMatch match = new DoublesMatch(A,B);
 			for(int i = 0;i < scores.length;i++){
-				if(scores[i][0] >= 0 && scores[i][1] >= 0){
+				if(Match.areValidScores(scores[i][0], scores[i][1])){
 					match.setTeamAScore(scores[i][0]);
 					match.setTeamBScore(scores[i][1]);
 					match.updatePlayerRatings();
+				}else{
+					JOptionPane.showMessageDialog(null, "Please enter valid scores");
 				}
 			}
 			SqlHelper.set("players", "doublesRating = " + playerA1.getDoublesRating(), "id = " + playerA1Id);
@@ -95,10 +103,12 @@ public class SubmitDoubles implements ActionListener{
 		}else{//mixed doubles
 			MixedDoublesMatch match = new MixedDoublesMatch(A,B);
 			for(int i = 0;i < scores.length;i++){
-				if(scores[i][0] >= 0 && scores[i][1] >= 0){
+				if(Match.areValidScores(scores[i][0], scores[i][1])){
 					match.setTeamAScore(scores[i][0]);
 					match.setTeamBScore(scores[i][1]);
 					match.updatePlayerRatings();
+				}else{
+					JOptionPane.showMessageDialog(null, "Please enter valid scores");
 				}
 			}
 			SqlHelper.set("players", "mixedDoublesRating = " + playerA1.getMixedDoublesRating(), "id = " + playerA1Id);

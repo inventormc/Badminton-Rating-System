@@ -2,8 +2,10 @@ package org.pausd.paly.badminton.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import org.pausd.paly.badminton.processing.Gender;
+import org.pausd.paly.badminton.processing.Match;
 import org.pausd.paly.badminton.processing.Player;
 import org.pausd.paly.badminton.processing.SinglesMatch;
 import org.pausd.paly.badminton.processing.Team;
@@ -19,6 +21,8 @@ public class SubmitSingles implements ActionListener{
 		//will need to identify player by id when querying into databases (e.g 007-James Bond, substring to get 007)
 		String playerAId = mm.getChoosePlayerA().getSelectedItem().toString();//check what the string looks like for errors
 		String playerBId = mm.getChoosePlayerB().getSelectedItem().toString();//check what the string looks like for errors
+		
+		ArrayList<String []> stringScores = new ArrayList<>();//might want to change code to stackoverflow way
 		int[][] scores = new int[3][2];
 		for(int i = 0;i < scores.length;i++){
 			for(int j = 0;j < scores[i].length;j++){
@@ -46,7 +50,7 @@ public class SubmitSingles implements ActionListener{
 		
 		SinglesMatch match = new SinglesMatch(A,B);
 		for(int i = 0;i < scores.length;i++){
-			if(scores[i][0] >= 0 && scores[i][1] >= 0){
+			if(Match.areValidScores(scores[i][0], scores[i][1])){
 				match.setTeamAScore(scores[i][0]);
 				match.setTeamBScore(scores[i][1]);
 				match.updatePlayerRatings();
