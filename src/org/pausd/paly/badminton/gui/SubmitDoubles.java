@@ -35,7 +35,7 @@ public class SubmitDoubles implements ActionListener{
 			for(int j = 0;j < scores[i].length;j++){
 				try{
 					scores[i][j] = Integer.parseInt(mm.getDoublesTextField(i, j).getText());
-				}catch(NumberFormatException ex){
+				}catch(NumberFormatException | NullPointerException ex){
 					scores[i][j] = -1; //set to negative if game not played
 				}
 			}

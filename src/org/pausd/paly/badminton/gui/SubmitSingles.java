@@ -28,7 +28,7 @@ public class SubmitSingles implements ActionListener{
 			for(int j = 0;j < scores[i].length;j++){
 				try{
 					scores[i][j] = Integer.parseInt(mm.getSinglesTextField(i, j).getText());
-				}catch(NumberFormatException ex){
+				}catch(NumberFormatException | NullPointerException ex){
 					scores[i][j] = -1;//set to negative to indicate game was not played
 				}
 			}
