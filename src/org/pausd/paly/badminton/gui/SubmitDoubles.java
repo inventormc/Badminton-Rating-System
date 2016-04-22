@@ -23,10 +23,16 @@ public class SubmitDoubles implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		//(e.g 007-James Bond, substring to get 007)
-		String playerA1Id = mm.getA1().getSelectedItem().toString();
-		String playerA2Id = mm.getA2().getSelectedItem().toString();
-		String playerB1Id = mm.getB1().getSelectedItem().toString();
-		String playerB2Id = mm.getB2().getSelectedItem().toString();
+		String [][] ids = new String[4][2];
+		ids[0] = mm.getA1().getSelectedItem().toString().split("-");
+		ids[1] = mm.getA2().getSelectedItem().toString().split("-");
+		ids[2] = mm.getB1().getSelectedItem().toString().split("-");
+		ids[3] = mm.getB2().getSelectedItem().toString().split("-");
+		
+		String playerA1Id = ids[0][0].trim();
+		String playerA2Id = ids[1][0].trim();
+		String playerB1Id = ids[2][0].trim();
+		String playerB2Id = ids[3][0].trim();
 		
 		ArrayList<String []> stringScores = new ArrayList<>();//might want to change code to stackoverflow way
 		int[][] scores = new int[3][2];
@@ -66,10 +72,10 @@ public class SubmitDoubles implements ActionListener{
 			initialRatingB2 = Integer.parseInt(SqlHelper.get("mixedDoublesRating", "player", "id = " + playerB2Id));
 		}
 		
-		Player playerA1 = new Player(playerA1Name,genderA1);
-		Player playerA2 = new Player(playerA2Name,genderA2);
-		Player playerB1 = new Player(playerB1Name,genderB1);
-		Player playerB2 = new Player(playerB2Name,genderB2);
+		Player playerA1 = new Player(Integer.parseInt(playerA1Id), playerA1Name,genderA1);
+		Player playerA2 = new Player(Integer.parseInt(playerA2Id), playerA2Name,genderA2);
+		Player playerB1 = new Player(Integer.parseInt(playerB1Id), playerB1Name,genderB1);
+		Player playerB2 = new Player(Integer.parseInt(playerB2Id), playerB2Name,genderB2);
 		if(genderA1 == genderA2){//doubles
 			playerA1.setDoublesRating(initialRatingA1);
 			playerA2.setDoublesRating(initialRatingA2);

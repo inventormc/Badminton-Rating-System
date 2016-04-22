@@ -19,8 +19,12 @@ public class SubmitSingles implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		//will need to identify player by id when querying into databases (e.g 007-James Bond, substring to get 007)
-		String playerAId = mm.getChoosePlayerA().getSelectedItem().toString();//check what the string looks like for errors
-		String playerBId = mm.getChoosePlayerB().getSelectedItem().toString();//check what the string looks like for errors
+		String [][] ids = new String[2][2];
+		ids[0] = mm.getChoosePlayerA().getSelectedItem().toString().split("-");
+		ids[1] = mm.getChoosePlayerB().getSelectedItem().toString().split("-");
+		
+		String playerAId = ids[0][0].trim();//check what the string looks like for errors
+		String playerBId = ids[1][0].trim();//check what the string looks like for errors
 		
 		ArrayList<String []> stringScores = new ArrayList<>();//might want to change code to stackoverflow way
 		int[][] scores = new int[3][2];
@@ -41,8 +45,8 @@ public class SubmitSingles implements ActionListener{
 		int initialRatingA = Integer.parseInt(SqlHelper.get("singlesRating", "players", "id = " + playerAId));
 		int initialRatingB = Integer.parseInt(SqlHelper.get("singlesRating", "players", "id = " + playerBId));
 		
-		Player playerA = new Player(playerAName, genderA);
-		Player playerB = new Player(playerBName, genderB);
+		Player playerA = new Player(Integer.parseInt(playerAId), playerAName, genderA);
+		Player playerB = new Player(Integer.parseInt(playerBId), playerBName, genderB);
 		playerA.setSinglesRating(initialRatingA);
 		playerB.setSinglesRating(initialRatingB);
 		Team A = new Team(playerA);

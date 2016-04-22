@@ -1,15 +1,21 @@
 package org.pausd.paly.badminton.processing;
 
 public class Player {
+	private final int id;
 	private final String name;
 	private Gender gender;
 	private int singlesRating;
 	private int doublesRating;
 	private int mixedDoublesRating;
 	
-	public Player(String name, Gender gender) {
+	public Player(int id, String name, Gender gender) {
+		this.id = id;
 		this.name = name;
 		this.gender = gender;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 	public Gender getGender() {
