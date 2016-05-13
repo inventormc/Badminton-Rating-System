@@ -15,24 +15,25 @@ import org.pausd.paly.badminton.processing.Team;
 import org.pausd.paly.badminton.sql.SqlHelper;
 
 public class SubmitDoubles implements ActionListener{
-	MainMenu mm;
+	DoublesPanel dp;
 	
-	public SubmitDoubles(MainMenu mm){
-		this.mm = mm;
+	public SubmitDoubles(DoublesPanel dp){
+		this.dp = dp;
 	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		//(e.g 007-James Bond, substring to get 007)
-		String [][] ids = new String[4][2];
-		ids[0] = mm.getA1().getSelectedItem().toString().split("-");
-		ids[1] = mm.getA2().getSelectedItem().toString().split("-");
-		ids[2] = mm.getB1().getSelectedItem().toString().split("-");
-		ids[3] = mm.getB2().getSelectedItem().toString().split("-");
+		String [][] players = new String[4][2];
+		players[0] = dp.getA1().getSelectedItem().toString().split("-");
+		players[1] = dp.getA2().getSelectedItem().toString().split("-");
+		players[2] = dp.getB1().getSelectedItem().toString().split("-");
+		players[3] = dp.getB2().getSelectedItem().toString().split("-");
 		
-		String playerA1Id = ids[0][0].trim();
-		String playerA2Id = ids[1][0].trim();
-		String playerB1Id = ids[2][0].trim();
-		String playerB2Id = ids[3][0].trim();
+		String playerA1Id = players[0][0].trim();
+		String playerA2Id = players[1][0].trim();
+		String playerB1Id = players[2][0].trim();
+		String playerB2Id = players[3][0].trim();
 		
 		ArrayList<String []> stringScores = new ArrayList<>();//might want to change code to stackoverflow way
 		int[][] scores = new int[3][2];
@@ -40,7 +41,7 @@ public class SubmitDoubles implements ActionListener{
 		for(int i = 0;i < scores.length;i++){
 			for(int j = 0;j < scores[i].length;j++){
 				try{
-					scores[i][j] = Integer.parseInt(mm.getDoublesTextField(i, j).getText());
+					scores[i][j] = Integer.parseInt(dp.getDoublesTextField(i, j).getText());
 				}catch(NumberFormatException | NullPointerException ex){
 					scores[i][j] = -1; //set to negative if game not played
 				}
@@ -48,10 +49,11 @@ public class SubmitDoubles implements ActionListener{
 		}
 		
 		//(e.g 007-James Bond, substring to get James Bond)
-		String playerA1Name = mm.getA1().getSelectedItem().toString();
-		String playerA2Name = mm.getA2().getSelectedItem().toString();
-		String playerB1Name = mm.getB1().getSelectedItem().toString();
-		String playerB2Name = mm.getB2().getSelectedItem().toString();
+		
+		String playerA1Name = players[0][1].trim();
+		String playerA2Name = players[1][1].trim();
+		String playerB1Name = players[2][1].trim();
+		String playerB2Name = players[3][1].trim();
 		Gender genderA1 = Gender.fromString(SqlHelper.get("gender", "players", "id = " + playerA1Id));
 		Gender genderA2 = Gender.fromString(SqlHelper.get("gender", "players", "id = " + playerA2Id));
 		Gender genderB1 = Gender.fromString(SqlHelper.get("gender", "players", "id = " + playerB1Id));
@@ -122,7 +124,7 @@ public class SubmitDoubles implements ActionListener{
 			SqlHelper.set("players", "mixedDoublesRating = " + playerB1.getMixedDoublesRating(), "id = " + playerB1Id);
 			SqlHelper.set("players", "mixedDoublesRating = " + playerB2.getMixedDoublesRating(), "id = " + playerB2Id);
 		}
-		mm.clearDoublesEntries();
+		dp.clearDoublesEntries();
 	}
 
 }

@@ -12,34 +12,37 @@ import org.pausd.paly.badminton.processing.Team;
 import org.pausd.paly.badminton.sql.SqlHelper;
 
 public class SubmitSingles implements ActionListener{
-	MainMenu mm;
-	public SubmitSingles(MainMenu mm){
-		this.mm = mm;
+	
+	SinglesPanel sp;
+	
+	public SubmitSingles(SinglesPanel sp){
+		this.sp = sp;
 	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		//will need to identify player by id when querying into databases (e.g 007-James Bond, substring to get 007)
-		String [][] ids = new String[2][2];
-		ids[0] = mm.getChoosePlayerA().getSelectedItem().toString().split("-");
-		ids[1] = mm.getChoosePlayerB().getSelectedItem().toString().split("-");
+		String [][] players = new String[2][2];
+		players[0] = sp.getChoosePlayerA().getSelectedItem().toString().split("-");
+		players[1] = sp.getChoosePlayerB().getSelectedItem().toString().split("-");
 		
-		String playerAId = ids[0][0].trim();//check what the string looks like for errors
-		String playerBId = ids[1][0].trim();//check what the string looks like for errors
+		String playerAId = players[0][0].trim();//check what the string looks like for errors
+		String playerBId = players[1][0].trim();//check what the string looks like for errors
 		
 		ArrayList<String []> stringScores = new ArrayList<>();//might want to change code to stackoverflow way
 		int[][] scores = new int[3][2];
 		for(int i = 0;i < scores.length;i++){
 			for(int j = 0;j < scores[i].length;j++){
 				try{
-					scores[i][j] = Integer.parseInt(mm.getSinglesTextField(i, j).getText());
+					scores[i][j] = Integer.parseInt(sp.getSinglesTextField(i, j).getText());
 				}catch(NumberFormatException | NullPointerException ex){
 					scores[i][j] = -1;//set to negative to indicate game was not played
 				}
 			}
 		}
 		//(007-James Bond, substring to get James Bond)
-		String playerAName = mm.getChoosePlayerA().getSelectedItem().toString();//check what the string looks like for errors
-		String playerBName = mm.getChoosePlayerB().getSelectedItem().toString();//check what the string looks like for errors
+		String playerAName = players[0][1].trim();//check what the string looks like for errors
+		String playerBName = players[1][1].trim();//check what the string looks like for errors
 		Gender genderA = Gender.fromString(SqlHelper.get("gender", "players", "id = " + playerAId));
 		Gender genderB = Gender.fromString(SqlHelper.get("gender", "players", "id = " + playerBId));
 		int initialRatingA = Integer.parseInt(SqlHelper.get("singlesRating", "players", "id = " + playerAId));
@@ -63,7 +66,7 @@ public class SubmitSingles implements ActionListener{
 		
 		SqlHelper.set("players", "singlesRating = " + playerA.getSinglesRating(), "id = " + playerAId);
 		SqlHelper.set("players", "sinlgesRating = " + playerB.getSinglesRating(), "id = " + playerBId);
-		mm.clearSinglesEntries();
+		sp.clearSinglesEntries();
 	}
 
 }

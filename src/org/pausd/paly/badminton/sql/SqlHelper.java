@@ -2,6 +2,7 @@ package org.pausd.paly.badminton.sql;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -9,8 +10,10 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
 
 public class SqlHelper {
+	//MAY NEED TO REVISE SQLHELPER METHODS TO MAKE MORE SENSE/MORE CONCISE WHEN CALLING METHODS
 	static Connection c;
 	static Statement stmt = null;
+	
 	public static Statement initializeDB(){
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -26,6 +29,7 @@ public class SqlHelper {
 		}
 		return stmt;
 	}
+	
 	public static void closeConnection(){
 		try {
 			c.close();
@@ -54,6 +58,7 @@ public class SqlHelper {
 		}
 		return result;
 	}
+
 	public static void set(String database, String set,String where){
 		try{
 			stmt = initializeDB();
@@ -65,5 +70,23 @@ public class SqlHelper {
 		} catch(SQLException e){
 			JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
 		}
+	}
+	
+	public static ArrayList<String> getAllIds(){
+		ArrayList<String> ids = new ArrayList<>();
+		try{
+			stmt = initializeDB();
+			String query = "SELECT id " + 
+							"FROM players";
+			ResultSet rs = stmt.executeQuery(query);
+			while(rs.next()){
+				ids.add(rs.getString(1));
+			}
+			rs.close();
+			closeConnection();
+		}catch(SQLException e){
+			JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
+		}
+		return ids;
 	}
 }
