@@ -8,15 +8,23 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
+/**
+ * 
+ * @author michaelchau
+ * A JPanel that will be called upon in MainMenu when user needs to enter scores
+ * for a doubles match
+ */
 public class DoublesPanel extends JPanel{
-	private JComboBox<String> a1, a2, b1, b2;
-	private JTextField doublesScores[][];
+	private JComboBox<String> a1, a2, b1, b2;//combobox to choose player
+	private JTextField doublesScores[][];//store scores textfields
 
+	/**
+	 * Build DoublesPanel (JPanel), GUI for entering scores in doubles match
+	 */
 	public DoublesPanel(){
-		doublesScores = new JTextField[3][2];
-		JPanel doubles = new JPanel();
+		doublesScores = new JTextField[3][2];//initialize
 		
+		//label which side is for team a scores, and team b scores
 		JPanel doublesTop = new JPanel();
 		doublesTop.setLayout(new GridLayout(0,2));
 		JLabel teamA = new JLabel("Team A");
@@ -24,6 +32,7 @@ public class DoublesPanel extends JPanel{
 		doublesTop.add(teamA);
 		doublesTop.add(teamB);
 		
+		//combobox to choose which players are in the game
 		JPanel doublesMiddle = new JPanel();
 		doublesMiddle.setLayout(new GridLayout(0,4));
 		a1 = new JComboBox<>();
@@ -39,6 +48,7 @@ public class DoublesPanel extends JPanel{
 		doublesMiddle.add(b1);
 		doublesMiddle.add(b2);
 		
+		//initialize textfields to take game scores
 		JPanel doublesBottom = new JPanel();
 		doublesBottom.setLayout(new GridLayout(0,2));
 		doublesScores[0][0] = new JTextField();//teamAGame1
@@ -58,36 +68,66 @@ public class DoublesPanel extends JPanel{
 		doublesBottom.add(doublesScores[2][1]);
 		doublesBottom.add(enterDoubles);
 		
-		doubles.setLayout(new BoxLayout(doubles,BoxLayout.Y_AXIS));
-		doubles.add(doublesTop);
-		doubles.add(doublesMiddle);
-		doubles.add(doublesBottom);
+		//add to this jpanel
+		this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
+		this.add(doublesTop);
+		this.add(doublesMiddle);
+		this.add(doublesBottom);
 	}
 	
+	/**
+	 * 
+	 * @return JComboBox a1 (Player 1 of team a)
+	 */
 	public JComboBox<String> getA1() {
 		return a1;
 	}
-
+	
+	/**
+	 * 
+	 * @return JComboBox a2 (Player 2 of team a)
+	 */
 	public JComboBox<String> getA2() {
 		return a2;
 	}
-
+	
+	/**
+	 * 
+	 * @return JComboBox b1 (Player 1 of team b)
+	 */
 	public JComboBox<String> getB1() {
 		return b1;
 	}
-
+	
+	/**
+	 * 
+	 * @return JComboBox b2 (Player 2 of team b)
+	 */
 	public JComboBox<String> getB2() {
 		return b2;
 	}
-
+	
+	/**
+	 * 
+	 * @return array storing scores for the game
+	 */
 	public JTextField[][] getDoublesScores() {
 		return doublesScores;
 	}
 	
+	/**
+	 * 
+	 * @param row - which row textfield is in
+	 * @param column - which column textfield is in
+	 * @return a specific textfield that takes a sccore in the gui 
+	 */
 	public JTextField getDoublesTextField(int row, int column) {
 		return doublesScores[row][column];
 	}
 	
+	/**
+	 * clear textfields
+	 */
 	public void clearDoublesEntries(){
 		for(int i = 0;i < doublesScores.length;i++){
 			for(int j = 0;j < doublesScores[i].length;j++){
